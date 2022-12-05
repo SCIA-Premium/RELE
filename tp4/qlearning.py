@@ -47,7 +47,8 @@ class QLearningAgent:
         V(s) = max_a Q(s, a) over possible actions.
         """
         # TODO: compute V(s)
-        return 0.0
+        vs = self.get_qvalue(state, self.get_best_action(state))
+        return vs
 
     def update(self, state: State, action: Action, reward: float, next_state: State):
         """
@@ -57,7 +58,9 @@ class QLearningAgent:
            Q_new(s, a) := Q_old(s, a) + learning_rate * TD_error(s', a)
         """
         # TODO: compute the Q-value update
-        q_value = 0.0
+        td_target = reward + self.gamma * self.get_value(next_state)
+        td_error = td_target - self.get_qvalue(state, action)
+        q_value = self.get_qvalue(state, action) + self.learning_rate * td_error
 
         self.set_qvalue(state, action, q_value)
 
@@ -84,6 +87,9 @@ class QLearningAgent:
         """
         # TODO add epsilon-greedy exploration
         is_greedy = False
+
+        if random.random() < self.epsilon:
+            is_greedy = True
 
         return (
             random.choice(self.legal_actions)
