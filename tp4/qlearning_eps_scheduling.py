@@ -16,7 +16,7 @@ class QLearningAgentEpsScheduling(QLearningAgent):
         # TODO add epsilon-greedy exploration with a scheduling to reduce epsilon
         is_greedy = False
 
-        self.epsilon = self.epsilon * 0.99
+        self.epsilon = self.epsilon * 0.99995
         
         if random.random() < self.epsilon:
             is_greedy = True
