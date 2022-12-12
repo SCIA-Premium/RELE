@@ -2,3 +2,4 @@
 tp*/.ipynb_checkpoints/*
 *.zip
 .venv
+__pycache__
